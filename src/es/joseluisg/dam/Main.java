@@ -12,7 +12,9 @@ public class Main {
 
     public static void main(String[] args) {
         listasPilasColas();
+        arraysMultidimensional();
     }
+
 
     private static void listasPilasColas() {
         System.out.println("ArrayList");
@@ -91,5 +93,40 @@ public class Main {
         while (!stack.isEmpty()) {
             System.out.println(stack.pop()); // RemoveFirst o poll
         }
+    }
+
+    private static void arraysMultidimensional() {
+        System.out.println("\nArrays Multidimensional");
+        // Definimos la matriz. ArrayList de filas, donde cada una es un ArrayList
+        ArrayList<ArrayList<Persona>> matrix = new ArrayList<ArrayList<Persona>>();
+        // Para cada cosa podemos jugar con un tamaño. Podemos tener columnas de distintos
+        // tamaños. y recorrerlas como queramos.
+        for (int i = 0; i < TAM; i++) {
+            // Creamos cada columna, que es un nuevo arrayList
+            ArrayList<Persona> fila = new ArrayList<Persona>();
+            for (int j = 0; j < TAM; j++) {
+                fila.add(new Persona());
+            }
+            matrix.add(fila);
+        }
+
+        // Mostramos la matriz con dos for anidados
+        System.out.println("\nArrays Multidimensional 2 for anidados");
+        for (int i = 0; i < matrix.size(); i++) {
+            for (int j = 0; j < matrix.get(i).size(); j++) {
+                System.out.print("[ " + matrix.get(i).get(j) + " ] ");
+            }
+            System.out.println();
+        }
+        // Mostramos la matriz con dos for anidados
+        System.out.println("\nArrays Multidimensional 2 foreach");
+        for (ArrayList<Persona> personas : matrix) {
+            for (Persona persona : personas) {
+                System.out.print("[ " + persona + " ] ");
+            }
+            System.out.println();
+        }
+
+        // podemos hacer lista de listas o colas de pilas, o la combinación que queramos
     }
 }
