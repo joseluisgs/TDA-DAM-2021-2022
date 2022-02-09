@@ -2,7 +2,7 @@
 
 Tema 06 Tipo de Datos Abstracto. 1DAM. Curso 2021/2022.
 
-![imagen](https://thesoftclix.com/wp-content/uploads/2019/09/unnamed-1.png)
+![imagen](https://cdn.computercareers.org/wp-content/uploads/Become-a-Web-Developer.jpg)
 
 - [Programación - Tipo de Datos Abstractos, Colecciones y Genéricos](#programación---tipo-de-datos-abstractos-colecciones-y-genéricos)
   - [Tipo de Datos Abstracto](#tipo-de-datos-abstracto)
