@@ -1,20 +1,23 @@
 package es.joseluisg.dam;
 
+import es.joseluisg.dam.comparators.PersonaIdComparator;
+import es.joseluisg.dam.comparators.PersonaNombreComparator;
 import es.joseluisg.dam.model.Persona;
 import es.joseluisg.dam.tda.cola.Cola;
 import es.joseluisg.dam.tda.pila.Pila;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Main {
     private static final int TAM = 10;
 
     public static void main(String[] args) {
-        listasPilasColas();
-        arraysMultidimensional();
+        //listasPilasColas();
+        //arraysMultidimensional();
+        ordenacionBusqueda();
     }
-
 
     private static void listasPilasColas() {
         System.out.println("ArrayList");
@@ -128,5 +131,54 @@ public class Main {
         }
 
         // podemos hacer lista de listas o colas de pilas, o la combinación que queramos
+    }
+
+    private static void ordenacionBusqueda() {
+        System.out.println("Ordenación");
+        ArrayList<Persona> lista = new ArrayList<Persona>();
+
+        for (int i = 0; i < TAM; i++) {
+            Persona persona = new Persona();
+            lista.add(persona);
+        }
+
+        Persona persona = new Persona(23, "Juan");
+        lista.add(persona);
+        persona = new Persona(23, "Pepe");
+        lista.add(persona);
+
+        System.out.println("Sin ordenar");
+        for (Persona p : lista) {
+            System.out.println(p);
+
+        }
+        Collections.sort(lista);
+
+        System.out.println("Ordenado");
+        for (Persona p : lista) {
+            System.out.println(p);
+
+        }
+
+        // Comparable
+        System.out.println("\nOrdenación Comparator Nombre");
+        PersonaNombreComparator comparatorNombre = new PersonaNombreComparator();
+        // Collections.sort(lista, comparatorNombre);
+        lista.sort(comparatorNombre);
+        System.out.println("Ordenado");
+        for (Persona p : lista) {
+            System.out.println(p);
+
+        }
+        System.out.println("\nOrdenación Comparator Id");
+        PersonaIdComparator comparatorId = new PersonaIdComparator();
+        // Collections.sort(lista, comparatorId);
+        lista.sort(comparatorId);
+        System.out.println("Ordenado");
+        for (Persona p : lista) {
+            System.out.println(p);
+        }
+        lista.sort(new PersonaIdComparator());
+
     }
 }

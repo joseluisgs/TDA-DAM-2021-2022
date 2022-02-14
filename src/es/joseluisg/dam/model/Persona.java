@@ -1,8 +1,9 @@
 package es.joseluisg.dam.model;
 
+import java.util.Objects;
 import java.util.UUID;
 
-public class Persona {
+public class Persona implements Comparable<Persona> {
     private static int contador = 0;
     int edad;
     String nombre;
@@ -52,4 +53,28 @@ public class Persona {
                 ", id=" + id +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Persona persona = (Persona) o;
+        return edad == persona.edad && nombre.equals(persona.nombre);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(edad, nombre);
+    }
+
+    @Override
+    public int compareTo(Persona o) {
+        int res = this.edad - o.edad;
+        if (res == 0) {
+            res = this.nombre.compareTo(o.nombre);
+        }
+        return res;
+    }
 }
+
+
