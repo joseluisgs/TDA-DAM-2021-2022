@@ -14,6 +14,10 @@ Tema 06 Tipo de Datos Abstracto. 1DAM. Curso 2021/2022.
       - [Cola](#cola)
       - [Pila](#pila)
   - [Colecciones en JAVA](#colecciones-en-java)
+  - [Ordenación en colecciones](#ordenación-en-colecciones)
+    - [Comparable](#comparable)
+    - [Comparator](#comparator)
+  - [Búsqueda en colecciones](#búsqueda-en-colecciones)
   - [Recursos](#recursos)
   - [Autor](#autor)
     - [Contacto](#contacto)
@@ -45,6 +49,25 @@ Es una lista que implementa el comportamiento LIFO (Last In First Out). Es decir
 
 ## Colecciones en JAVA
 ![colecciones](./images/collection.jpg)
+
+
+## Ordenación en colecciones
+A la hora de ordenar en JAVA, se utiliza la clase Collections.sort(lista). Esta clase recibe una lista y la ordena de acuerdo a una regla de ordenación.
+
+### Comparable
+La Interfaz Comparable permite definir una regla de ordenación principal de un objeto en base a su método compareTo(). Este método debe devolver un valor entero que indica la relación de orden entre el objeto actual y el objeto pasado como parámetro. Será el principal método por el que las colecciones se ordenarán cuando así lo deseemos o así lo fije su naturaleza.
+
+### Comparator
+La interfaz Comparator permite definir una regla de ordenación secundaria de un objeto en base a su método compare(). Este método debe devolver un valor entero que indica la relación de orden entre el objeto actual y el objeto pasado como parámetro. Podemos definir las que queramos y nos servirán como métodos de ordenación específicos para colecciones según nos sean necesarios.
+
+## Búsqueda en colecciones
+La búsqueda en colecciones es una tarea muy importante. En JAVA, se utiliza la clase Collections.binarySearch(lista, objeto). Esta clase recibe una lista y un objeto y devuelve un entero que indica la posición del objeto en la lista. Para ello, los objetos deben implementar la interfaz Comparable. Devolverá:
+- Retornará un valor mayor o igual a cero en caso de encontrar el objeto buscado en la colección.
+- El valor retornado será negativo cuando la lista no se encuentre ordenada o cuando el valor buscado no exista en la lista ordenada.
+
+Además, podemos usar:
+- El método contains() nos devuelve true o false si un objeto está en la colección.
+- El método indexOf() nos devuelve el índice si existe de un objeto que está en una colección.
 
 ## Recursos
 - Twitter: https://twitter.com/joseluisgonsan
