@@ -7,16 +7,22 @@ Tema 06 Tipo de Datos Abstracto. 1DAM. Curso 2021/2022.
 - [Programación - Tipo de Datos Abstractos, Colecciones y Genéricos](#programación---tipo-de-datos-abstractos-colecciones-y-genéricos)
   - [Tipo de Datos Abstracto](#tipo-de-datos-abstracto)
   - [Genéricos](#genéricos)
-  - [Colecciones](#colecciones)
+  - [Colecciones en JAVA](#colecciones-en-java)
     - [Listas](#listas)
       - [ArrayList](#arraylist)
       - [LinkedList](#linkedlist)
       - [Cola](#cola)
       - [Pila](#pila)
-  - [Colecciones en JAVA](#colecciones-en-java)
+    - [Conjuntos](#conjuntos)
+      - [HashSet](#hashset)
+      - [TreeSet](#treeset)
+    - [Mapas](#mapas)
+      - [HashMap](#hashmap)
+      - [TreeMap](#treemap)
   - [Ordenación en colecciones](#ordenación-en-colecciones)
     - [Comparable](#comparable)
     - [Comparator](#comparator)
+    - [Formas de ordenar una colección](#formas-de-ordenar-una-colección)
   - [Búsqueda en colecciones](#búsqueda-en-colecciones)
   - [Recursos](#recursos)
   - [Autor](#autor)
@@ -33,41 +39,159 @@ Una ventaja principal del código genérico es que trabajará automáticamente c
 
 Es importante entender que Java siempre le ha dado la habilidad de crear clases, interfaces y métodos generalizados operando a través de referencias del tipo Object. El problema era que no podían hacerlo con la seguridad del tipo porque se necesitaban conversiones para convertir explícitamente de Object al tipo real de datos sobre los que se operaba. Por lo tanto, fue posible crear accidentalmente desajustes de tipo. Los genéricos agregan el tipo de seguridad que faltaba porque hacen que estas conversiones sean automáticas e implícitas. En resumen, los genéricos amplían su capacidad de reutilizar el código y le permiten hacerlo de forma segura y confiable.
 
+```java
+interface IPila<T> {
+    void apilar(T item);
 
-## Colecciones
-Las colecciones son una forma de organizar datos en una estructura de datos. Estas estructuras de datos permiten almacenar datos de diferentes tipos y tamaños y tiene un comportamiento específico según la naturaleza que se le asignan.
-### Listas
-Las listas almacenan información en un orden determinado. Pueden ser enlazadas o no. Y se puede acceder a ellas mediante un índice, si este está disponible.
-#### ArrayList
-Es una lista cuyo acceso y modificación se hace a través de un índice. Es una lista de acceso aleatorio.
-#### LinkedList
-Es una lista cuyo acceso y modificación se hace a través de una referencia. Es una lista de acceso secuencial.
-#### Cola
-Es una lista que implementa el comportamiento FIFO (First In First Out). Es decir, el primer elemento que se añade es el primero en salir. Y por lo tanto, lo que nos interesa es hacer referencia a dichos elementos y comportamiento específico.
-#### Pila
-Es una lista que implementa el comportamiento LIFO (Last In First Out). Es decir, el último elemento que se añade es el primero en salir. Nos interesa conocer la cima, y por lo tanto aprovechar este comportamiento específico.
+    T desapilar();
+
+    boolean esVacia();
+
+}
+```
+
+```java
+public class Pila<T> extends ArrayList<T> implements IPila<T> {
+
+    @Override
+    public void apilar(T item) {
+        this.add(0, item);
+    }
+
+    @Override
+    public T desapilar() {
+        return this.remove(0);
+    }
+}
+```
+
 
 ## Colecciones en JAVA
+Las colecciones son una forma de organizar datos en una estructura de datos. Estas estructuras de datos permiten almacenar datos de diferentes tipos y tamaños y tiene un comportamiento específico según la naturaleza que se le asignan.
+
 ![colecciones](./images/collection.jpg)
 
+### Listas
+Las listas almacenan información en un orden determinado. Pueden ser enlazadas o no. Y se puede acceder a ellas mediante un índice, si este está disponible.
 
+#### ArrayList
+Es una lista cuyo acceso y modificación se hace a través de un índice. Es una lista de acceso aleatorio.
+
+```java
+ArrayList<Persona> lista = new ArrayList<Persona>();
+```
+
+#### LinkedList
+Es una lista cuyo acceso y modificación se hace a través de una referencia. Es una lista de acceso secuencial.
+```java
+LinkedList<Persona> lista = new LinkedList<Persona>();
+```
+#### Cola
+Es una lista que implementa el comportamiento FIFO (First In First Out). Es decir, el primer elemento que se añade es el primero en salir. Y por lo tanto, lo que nos interesa es hacer referencia a dichos elementos y comportamiento específico. Podemos usar ArrayDeque o LinkedList para implementar la cola.
+#### Pila
+Es una lista que implementa el comportamiento LIFO (Last In First Out). Es decir, el último elemento que se añade es el primero en salir. Nos interesa conocer la cima, y por lo tanto aprovechar este comportamiento específico. Podemos usar ArrayDeque o LinkedList para implementar la cola.
+
+### Conjuntos
+Los conjuntos es una colección que no admite elementos repetidos. Para ello es imprescindible que el método equals() y hashCode() de los objetos al almacenar esté definido.
+
+#### HashSet
+Es una colección que no admite elementos repetidos. Es una colección de acceso aleatorio. Su orden viene dado por la función hashCode() de los objetos almacenados.
+```java
+HashSet<Droide> set = new HashSet<Droide>();
+```
+
+#### TreeSet
+Es una colección que no admite elementos repetidos. Mantiene un orden predefinido. Este orden se define por el método compareTo() de los objetos almacenados si este está definido o usando un objeto que implemente la interfaz Comparator y con ella establezca el orden.
+```java
+TreeSet<Droide> set = new TreeSet<Droide>();
+```
+```java
+TreeSet<Droide> set2 = new TreeSet<Droide>(new DroideIdComparator());
+```
+
+### Mapas
+Los mapas son una colección que almacena datos en una estructura de datos que permite acceso a datos de una manera muy eficiente usando el sistema Clave-Valor.
+#### HashMap
+Un mapa que admite claves que son objetos, y como valor otros objetos. Es un mapa de acceso aleatorio. El orden viene dado por la función hashCode() de los objetos almacenados.
+```java
+HashMap<Integer, Droide> map = new HashMap<Integer, Droide>();
+```
+#### TreeMap
+Un mapa que admite claves que son objetos, y como valor otros objetos. Es un mapa de acceso aleatorio. Mantiene un orden predefinido según la ordenación prefijada en la clave. Se puede Este orden se define por el método compareTo() de la clave o usando un objeto que implemente la interfaz Comparator y con ella establezca el orden para dicha clave.
+```java
+TreeMap<Integer, Droide> map = new TreeMap<Integer, Droide>();
+```
+```java
+TreeMap<Integer, Droide> map = new TreeMap<>(new DroideMapKeyDescComparator());
+```
 ## Ordenación en colecciones
-A la hora de ordenar en JAVA, se utiliza la clase Collections.sort(lista). Esta clase recibe una lista y la ordena de acuerdo a una regla de ordenación.
-
 ### Comparable
 La Interfaz Comparable permite definir una regla de ordenación principal de un objeto en base a su método compareTo(). Este método debe devolver un valor entero que indica la relación de orden entre el objeto actual y el objeto pasado como parámetro. Será el principal método por el que las colecciones se ordenarán cuando así lo deseemos o así lo fije su naturaleza.
+```java
+public class Droide implements Comparable<Droide> {
+  ...
+  @Override
+  public int compareTo(Droide o) {
+      return this.getAño() - o.getAño();
+  }
+  ...
+}
+```
 
 ### Comparator
 La interfaz Comparator permite definir una regla de ordenación secundaria de un objeto en base a su método compare(). Este método debe devolver un valor entero que indica la relación de orden entre el objeto actual y el objeto pasado como parámetro. Podemos definir las que queramos y nos servirán como métodos de ordenación específicos para colecciones según nos sean necesarios.
+```java
+public class DroideIdComparator implements Comparator<Droide> {
+    @Override
+    public int compare(Droide o1, Droide o2) {
+        return o1.getId() - o2.getId();
+    }
+}
+```
+
+### Formas de ordenar una colección
+A la hora de ordenar en JAVA, se utiliza la clase Collections.sort(lista). Esta clase recibe una lista y la ordena de acuerdo a una regla de ordenación. La regla de ordenación se define mediante una interfaz Comparator o una clase que implemente esta interfaz. También se puede fijar una ordenación por defecto usando compareTo() si el objeto almacenado implementa la interfaz ComparaBle y con ello establece un orden por defecto.
+```java
+Collections.sort(lista);
+```
+```java
+lista.sort(new PersonaIdComparator());
+```
+Si es un conjunto o mapa ya existe un orden, en base a su construcción o clave. 
+```java
+TreeSet<Droide> set = new TreeSet<Droide>();
+TreeSet<Droide> set2 = new TreeSet<Droide>(new DroideIdComparator());
+```
+```java
+TreeMap<Integer, Droide> map = new TreeMap<Integer, Droide>();
+TreeMap<Integer, Droide> map2 = new TreeMap<>(new DroideMapKeyDescComparator());
+```
 
 ## Búsqueda en colecciones
-La búsqueda en colecciones es una tarea muy importante. En JAVA, se utiliza la clase Collections.binarySearch(lista, objeto). Esta clase recibe una lista y un objeto y devuelve un entero que indica la posición del objeto en la lista. Para ello, los objetos deben implementar la interfaz Comparable. Devolverá:
+La búsqueda en colecciones es una tarea muy importante. En JAVA, se utiliza la clase Collections.binarySearch(lista, objeto). Esta clase recibe una lista y un objeto y devuelve un entero que indica la posición del objeto en la lista. Para ello, los objetos deben implementar la interfaz Comparable y estar la colección ordenada previamente. Devolverá:
 - Retornará un valor mayor o igual a cero en caso de encontrar el objeto buscado en la colección.
 - El valor retornado será negativo cuando la lista no se encuentre ordenada o cuando el valor buscado no exista en la lista ordenada.
+```java
+System.out.println("¿Existe?: " + Collections.binarySearch(lista, b));
+System.out.println("¿Existe?: " + Collections.binarySearch(lista, c));
+```
 
 Además, podemos usar:
 - El método contains() nos devuelve true o false si un objeto está en la colección.
-- El método indexOf() nos devuelve el índice si existe de un objeto que está en una colección.
+- El método indexOf() nos devuelve el índice si existe de un objeto que está en una colección o -1 si no está.
+```java
+System.out.println("¿Existe?: " + lista.contains(b));
+System.out.println("¿Existe?: " + lista.indexOf(b));
+```
+
+En mapas podemos usar las funciones relacionadas con la clave (Key) para buscar elementos:
+- El método containsKey() nos devuelve true o false si una clave está en el mapa.
+- El método .get() nos devuelve el valor asociado a una clave.
+```java
+if (map.containsKey(d.getId())) {
+    System.out.println(map.get(d.getId()));
+}
+```
 
 ## Recursos
 - Twitter: https://twitter.com/joseluisgonsan
