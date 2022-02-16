@@ -11,7 +11,7 @@ public class Persona implements Comparable<Persona> {
 
     public Persona() {
         this.edad = (int) (Math.random() * 100);
-        this.nombre = UUID.randomUUID().toString();
+        this.nombre = UUID.randomUUID().toString().substring(0, 8);
         this.id = ++contador;
     }
 
@@ -19,6 +19,12 @@ public class Persona implements Comparable<Persona> {
         this.edad = edad;
         this.nombre = nombre;
         this.id = ++contador;
+    }
+
+    public Persona(int id, int edad, String nombre) {
+        this.edad = edad;
+        this.nombre = nombre;
+        this.id = id;
     }
 
     public int getEdad() {
@@ -59,12 +65,12 @@ public class Persona implements Comparable<Persona> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Persona persona = (Persona) o;
-        return edad == persona.edad && nombre.equals(persona.nombre);
+        return edad == persona.edad && nombre.equals(persona.nombre) && id == persona.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(edad, nombre);
+        return Objects.hash(edad, nombre, id);
     }
 
     @Override

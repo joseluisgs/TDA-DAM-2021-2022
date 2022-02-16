@@ -1,22 +1,164 @@
 package es.joseluisg.dam;
 
+import es.joseluisg.dam.comparators.DroideIdComparator;
+import es.joseluisg.dam.comparators.DroideMapKeyDescComparator;
 import es.joseluisg.dam.comparators.PersonaIdComparator;
 import es.joseluisg.dam.comparators.PersonaNombreComparator;
+import es.joseluisg.dam.model.Droide;
 import es.joseluisg.dam.model.Persona;
 import es.joseluisg.dam.tda.cola.Cola;
 import es.joseluisg.dam.tda.pila.Pila;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 
 public class Main {
     private static final int TAM = 10;
 
     public static void main(String[] args) {
-        //listasPilasColas();
-        //arraysMultidimensional();
+        // Comenta y descomenta para ver el comportamiento de los mapas
+        listasPilasColas();
+        arraysMultidimensional();
         ordenacionBusqueda();
+        cojuntosHashSet();
+        conjuntosTreeSet();
+        mapasHashMap();
+        mapasTreeMap();
+    }
+
+    private static void mapasTreeMap() {
+        System.out.println("\nTreeMap");
+        // Lo ordena por clave, por defecto tiene la ordenación de Integer
+        // TreeMap<Integer, Droide> map = new TreeMap<>();
+        // Cambiamos el orden a Mayor a menor
+        //TreeMap<Integer, Droide> map = new TreeMap<>(Collections.reverseOrder());
+        // o
+        TreeMap<Integer, Droide> map = new TreeMap<>(new DroideMapKeyDescComparator());
+
+        for (int i = 0; i < TAM; i++) {
+            Droide droide = new Droide();
+            map.put(droide.getId(), droide);
+        }
+
+        Droide d = new Droide(99, "C3PO", 2022);
+        map.put(d.getId(), d);
+        Droide e = new Droide(99, "C3PO", 2022);
+        map.put(e.getId(), e);
+
+        if (map.containsKey(d.getId())) {
+            System.out.println(map.get(d.getId()));
+        }
+
+        System.out.println(d.equals(e));
+
+        for (Droide droide : map.values()) {
+            System.out.println(droide);
+        }
+
+        for (Integer key : map.keySet()) {
+            System.out.println(map.get(key));
+        }
+
+        for (Integer key : map.keySet()) {
+            System.out.println("key: " + key + " values : " + map.get(key));
+        }
+    }
+
+    private static void mapasHashMap() {
+        System.out.println("\nHashMap");
+        HashMap<Integer, Droide> map = new HashMap<>();
+
+        for (int i = 0; i < TAM; i++) {
+            Droide droide = new Droide();
+            map.put(droide.getId(), droide);
+        }
+
+        Droide d = new Droide(99, "C3PO", 2022);
+        map.put(d.getId(), d);
+        Droide e = new Droide(99, "C3PO", 2022);
+        map.put(e.getId(), e);
+
+        if (map.containsKey(d.getId())) {
+            System.out.println(map.get(d.getId()));
+        }
+
+        System.out.println(d.equals(e));
+
+        for (Droide droide : map.values()) {
+            System.out.println(droide);
+        }
+
+        for (Integer key : map.keySet()) {
+            System.out.println(map.get(key));
+        }
+
+        for (Integer key : map.keySet()) {
+            System.out.println("key: " + key + " values : " + map.get(key));
+        }
+    }
+
+    private static void cojuntosHashSet() {
+        System.out.println("\nHashSet");
+        HashSet<Droide> set = new HashSet<Droide>();
+        for (int i = 0; i < TAM; i++) {
+            Droide droide = new Droide();
+            set.add(droide);
+        }
+
+        Droide d = new Droide(99, "C3PO", 2022);
+        set.add(d);
+        Droide e = new Droide(99, "C3PO", 2022);
+        set.add(e);
+
+        System.out.println(d.equals(e));
+
+        for (Droide droide : set) {
+            System.out.println(droide);
+
+        }
+
+    }
+
+    private static void conjuntosTreeSet() {
+        System.out.println("\nTreeSet con compareTo");
+        TreeSet<Droide> set = new TreeSet<Droide>();
+        for (int i = 0; i < TAM; i++) {
+            Droide droide = new Droide();
+            set.add(droide);
+        }
+
+        Droide d = new Droide(99, "C3PO", 2022);
+        set.add(d);
+        Droide e = new Droide(99, "C3PO", 2022);
+        set.add(e);
+        Droide f = new Droide(100, "C3PO", -1);
+        set.add(f);
+        System.out.println(d.equals(e));
+
+        for (Droide droide : set) {
+            System.out.println(droide);
+
+        }
+
+        System.out.println("\nTreeSet con Comparator");
+        TreeSet<Droide> set2 = new TreeSet<Droide>(new DroideIdComparator());
+        for (int i = 0; i < TAM; i++) {
+            Droide droide = new Droide();
+            set2.add(droide);
+        }
+
+        d = new Droide(99, "C3PO", 2022);
+        set2.add(d);
+        e = new Droide(99, "C3PO", 2022);
+        set2.add(e);
+        f = new Droide(100, "C3PO", -1);
+        set2.add(f);
+        System.out.println(d.equals(e));
+
+        for (Droide droide : set2) {
+            System.out.println(droide);
+
+        }
+
     }
 
     private static void listasPilasColas() {
@@ -179,6 +321,26 @@ public class Main {
             System.out.println(p);
         }
         lista.sort(new PersonaIdComparator());
+
+        // Busqueda
+        System.out.println("\nBusqueda");
+        System.out.println("\nContains");
+        Persona b = new Persona(11, 23, "Pepe");
+        System.out.println("¿Existe?: " + lista.contains(b));
+        Persona c = new Persona(12, 23, "Pepe");
+        System.out.println("¿Existe?: " + lista.contains(c));
+
+        System.out.println("\nIndexOf");
+        System.out.println("¿Existe?: " + lista.indexOf(b));
+        System.out.println("¿Existe?: " + lista.indexOf(c));
+
+        System.out.println("\nBinarySearch");
+        Collections.sort(lista);
+        for (Persona p : lista) {
+            System.out.println(p);
+        }
+        System.out.println("¿Existe?: " + Collections.binarySearch(lista, b));
+        System.out.println("¿Existe?: " + Collections.binarySearch(lista, c));
 
     }
 }
