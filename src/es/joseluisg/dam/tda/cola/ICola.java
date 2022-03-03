@@ -8,10 +8,6 @@ public interface ICola<T> {
 
     boolean esVacia();
 
-    void vaciar();
-
-    int numElem();
-
     T primero();
 
     T ultimo();

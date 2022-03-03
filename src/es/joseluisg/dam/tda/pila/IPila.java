@@ -7,9 +7,5 @@ interface IPila<T> {
 
     boolean esVacia();
 
-    void vaciar();
-
-    int numElem();
-
     T cima();
 }

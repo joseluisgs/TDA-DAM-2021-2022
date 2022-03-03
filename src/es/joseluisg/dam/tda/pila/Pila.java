@@ -19,12 +19,10 @@ public class Pila<T> extends ArrayList<T> implements IPila<T> {
         return this.isEmpty();
     }
 
-    @Override
     public void vaciar() {
         this.clear();
     }
 
-    @Override
     public int numElem() {
         return this.size();
     }

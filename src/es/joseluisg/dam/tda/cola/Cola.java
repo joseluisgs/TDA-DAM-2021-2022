@@ -19,12 +19,10 @@ public class Cola<T> extends ArrayList<T> implements ICola<T> {
         return this.isEmpty();
     }
 
-    @Override
     public void vaciar() {
         this.clear();
     }
 
-    @Override
     public int numElem() {
         return this.size();
     }
